@@ -8,6 +8,39 @@
 	<script>ZiggeoApi.token = "35ddfcdb61cb69101828fe7ef30dd230";</script>
 	<script>ZiggeoApi.Config.webrtc = true;</script> 
 
+	<script>
+
+    if ("WebSocket" in window) {
+      alert("websocket is there");
+    }
+
+    var token = "xrkVrSd3h%2BXzl%2BEcfxd9ijei%2BcafYQItDv4Kk4TkSdTvzTWm%2FQANJd%2BCMOSL6eBUlCMF69ZossoIO2u3JFr6AcrEUg7T%2Bg0tFA4l%2Bwc%2FVvZHdDG39645D1XJu2Azs61D7Ymw3xmJHZ2AQ3oVuAE2qvOzypSSXTHWNR3kh08NwIah1KNseNsLSvM0MSCaaTToUFRsjCNlchw0jkneimWckOLamfAJ8b95CJV3pSHk%2F494Gc2zhnS9XsIKvBuhOyeNbwMFZhPSTLtc1g%2Bop5%2BRvSna7q3uRV60BUWbdsq%2F7PowL5rXs%2Fwei%2FemrDnowjx%2FSftvLAaR4cKloVLe1vRZ%2Fg%2Bi7vXQOFxssGDmbDD%2FxDz9syGDCfwdmtcfIppWLaTjd3ZhF5oMGl9Z2iNXjUC68j4W1SxV%2F6iEhlli8IzdvKP1VRwbHAIVfK8WUhe%2FRjW7RKcQgRLce1OyZ3mOGqutaQxkE0vFegOiHHvFoCpNYPVUWxCiOy2A%2FV8gbuBNJThYUqiFLc3FYFU9QLhAoni7iXSbpTJUvNM3MM4yUJH8kQeQml%2B9xC0aeDgUvmFSPGg9cIao38bHVWyHxH7Una4TYb00TD6RP3QRxk%2Bpu%2Br0XkmwZ%2FSsNcpeLomRD%2F7Hgm%2BDjnL0Ek1aJSsRYcnnuStIje4IuekGCV9fWojloj3m%2FXBA8d04eH4xsQuxeR8cv0EtW9Cgmq3kprhH80T7EcsFym%2BUSazC%2F7gYhvI3aAaeWNyE5Wt4Y9P4ZNCwrFLMstwJzvTXDtaxe3HENjHTXAlv2FPwtWfnUlgHT9q0Y5DPGPGrhFZrv1jw%2FsRzo9dAil4nB8Q2QRaTVB9frOfCcfEcO%2FxpaPTO76WCHalA9iZjQtTULF3OKSJqtRAWLxESCzGbi0QpbDC29hdDHrYNYgeo1OfkQyUlmDlu3cFY2wjE%2BxHcUo6RKMoQP52PvxrpbYuz";
+    var wsURI = 'wss://stream.watsonplatform.net/speech-to-text/api/v1/recognize?watson-token=' +
+      token + '&model=es-ES_BroadbandModel';
+    var websocket = new WebSocket(wsURI);
+    websocket.onopen = function(evt) { onOpen(evt) };
+    websocket.onclose = function(evt) { onClose(evt) };
+    websocket.onmessage = function(evt) { onMessage(evt) };
+    websocket.onerror = function(evt) { onError(evt) };
+
+    function onOpen(evt) {
+       var message = {
+          'action': 'start',
+          'content-type': 'audio/l16;rate=22050'
+       };
+       console.log("" + message);
+       websocket.send(JSON.stringify(message));
+    }
+
+    function onClose(evt) {
+      websocket.close();
+    }
+
+    function onMessage(evt) {
+       console.log(evt.data);
+    }
+  </script>
+
 </head>
 <body>
 	<ziggeo ziggeo-limit=15
